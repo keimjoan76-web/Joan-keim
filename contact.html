@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assessment & Contact | Joan Keim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink:#17212B; --ivory:#F7F3EA; --gold:#B69A61; --gold-light:#D4BC8A; --stone:#D9D4C9; --stone-dark:#C4BDB0; --white:#FFFFFF; --ink-muted:#4A5568; --serif:'Cormorant Garamond', Georgia, serif; --sans:'Manrope', system-ui, sans-serif; --max-w:1200px; --transition:0.35s cubic-bezier(0.4,0,0.2,1); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; } body { font-family: var(--sans); background: var(--ivory); color: var(--ink); line-height: 1.7; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; } ul { list-style: none; } img { max-width: 100%; display: block; } button { cursor: pointer; font-family: var(--sans); border: none; background: none; }
+    h1,h2,h3,h4 { font-family: var(--serif); font-weight: 500; line-height: 1.2; color: var(--ink); }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+    
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+    
+    .section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; } .section-label::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--gold); }
+    
+    .btn { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 2rem; border-radius: 4px; transition: var(--transition); cursor: pointer; text-align: center; }
+    .btn--primary { background: var(--ink); color: var(--ivory); border: 2px solid var(--ink); } .btn--primary:hover { background: var(--gold); border-color: var(--gold); color: var(--white); transform: translateY(-2px); }
+    .btn--outline { background: transparent; color: var(--ink); border: 2px solid var(--ink); } .btn--outline:hover { background: var(--ink); color: var(--ivory); transform: translateY(-2px); }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+
+    /* Nav */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(247,243,234,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--stone); transition: box-shadow var(--transition); }
+    .nav.scrolled { box-shadow: 0 2px 24px rgba(23,33,43,0.08); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 1rem; }
+    .nav__brand { display: flex; flex-direction: column; line-height: 1.1; } .nav__name { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--ink); } .nav__title { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+    .nav__links { display: flex; align-items: center; gap: 2rem; } .nav__links a { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); transition: color var(--transition); position: relative; }
+    .nav__links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width var(--transition); } .nav__links a:hover, .nav__links a.active { color: var(--ink); } .nav__links a:hover::after, .nav__links a.active::after { width: 100%; }
+    .nav__cta { font-size: 0.68rem; padding: 0.7rem 1.4rem; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; cursor: pointer; } .nav__hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); transition: var(--transition); }
+    .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); } .nav__hamburger.open span:nth-child(2) { opacity: 0; } .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav__mobile { display: none; flex-direction: column; background: var(--ivory); border-top: 1px solid var(--stone); padding: 1.5rem 2rem 2rem; gap: 1.25rem; } .nav__mobile.open { display: flex; } .nav__mobile a { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); padding: 0.5rem 0; border-bottom: 1px solid var(--stone); }
+
+    /* Page Hero */
+    .page-hero { background: var(--ink); padding: 10rem 0 7rem; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(182,154,97,0.07) 0%, transparent 70%); pointer-events: none; }
+    .page-hero__inner { position: relative; z-index: 2; max-width: 780px; }
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; } .breadcrumb a { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(182,154,97,0.6); } .breadcrumb a:hover { color: var(--gold); } .breadcrumb span { font-size: 0.7rem; color: rgba(247,243,234,0.2); } .breadcrumb strong { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247,243,234,0.4); }
+    .page-hero__eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; } .page-hero__eyebrow span { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); } .page-hero__eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
+    .page-hero__headline { font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 600; line-height: 1.05; color: var(--ivory); margin-bottom: 1.5rem; }
+    .page-hero__sub { font-size: 1.1rem; color: rgba(247,243,234,0.7); line-height: 1.8; max-width: 600px; }
+
+    /* Contact / Form */
+    .contact { background: var(--white); padding: 8rem 0; }
+    .contact__grid { display: grid; grid-template-columns: 5fr 7fr; gap: 6rem; align-items: start; }
+    .contact__info-headline { font-size: clamp(2rem, 3vw, 3rem); font-weight: 500; margin-bottom: 1.5rem; }
+    .contact__info-body { font-size: 1rem; color: var(--ink-muted); line-height: 1.85; margin-bottom: 1.5rem; }
+    
+    .form { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .form__group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form__label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); } .form__label span { color: var(--gold); margin-left: 2px; }
+    .form__input, .form__select, .form__textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid var(--stone-dark); background: var(--ivory); color: var(--ink); font-family: var(--sans); font-size: 0.9rem; border-radius: var(--radius); transition: var(--transition); outline: none; }
+    .form__input:focus, .form__select:focus, .form__textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(182,154,97,0.15); }
+    .form__textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    .form__select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23B69A61' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-color: var(--ivory); padding-right: 2.5rem; }
+    .form__privacy { font-size: 0.75rem; color: var(--ink-muted); line-height: 1.6; margin-top: 0.25rem; }
+
+    /* Footer & Social */
+    .social-icons { display: flex; gap: 0.85rem; margin-top: 1.5rem; } .social-icon { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--stone-dark); color: var(--ink-muted); transition: var(--transition); background: transparent; } .social-icon:hover { border-color: var(--gold); color: var(--gold); background: rgba(182,154,97,0.08); transform: translateY(-2px); } .social-icon svg { width: 16px; height: 16px; fill: currentColor; }
+    .social-icons--dark .social-icon { border-color: rgba(247,243,234,0.15); color: rgba(247,243,234,0.5); } .social-icons--dark .social-icon:hover { border-color: var(--gold); color: var(--gold); background: rgba(182,154,97,0.1); }
+    .footer { background: var(--ink); padding: 5rem 0 3rem; border-top: 1px solid rgba(182,154,97,0.2); } .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; } .footer__brand-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--ivory); } .footer__brand-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; } .footer__col-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; } .footer__links { display: flex; flex-direction: column; gap: 0.75rem; } .footer__link { font-size: 0.82rem; color: rgba(247,243,234,0.5); } .footer__contact-email a { font-size: 0.85rem; color: var(--gold); } .footer__bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; } .footer__copy, .footer__bottom-link { font-size: 0.72rem; color: rgba(247,243,234,0.3); }
+
+    /* Responsive */
+    @media (max-width: 1024px) { .footer__grid { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+    @media (max-width: 900px) { .contact__grid { grid-template-columns: 1fr; gap: 3rem; } }
+    @media (max-width: 640px) { .nav__links, .nav__cta-desktop { display: none; } .nav__hamburger { display: flex; } .form__row { grid-template-columns: 1fr; } .footer__grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    @media (min-width: 641px) { .nav__hamburger, .nav__mobile { display: none !important; } }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="index.html" class="nav__brand">
+          <span class="nav__name">Joan Keim</span><span class="nav__title">Book Marketing Strategist</span>
+        </a>
+        <ul class="nav__links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="process.html">How I Work</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="who.html">Who I Work With</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn--primary nav__cta nav__cta-desktop">Request an Assessment</a>
+        <button class="nav__hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+      <div class="nav__mobile" id="mobileMenu">
+        <a href="about.html">About</a><a href="process.html">How I Work</a><a href="service.html">Services</a><a href="who.html">Who I Work With</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb"><a href="index.html">Home</a> <span>→</span> <strong>Assessment & Contact</strong></nav>
+          <div class="page-hero__eyebrow reveal"><div class="page-hero__eyebrow-line"></div><span>Assessment</span></div>
+          <h1 class="page-hero__headline reveal reveal-delay-1">Let's Find Your<br><em>Readers.</em></h1>
+          <p class="page-hero__sub reveal reveal-delay-2">You don't need another generic marketing package. You need to understand what's actually happening with your book—and what opportunities may be available to you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section class="contact">
+      <div class="container">
+        <div class="contact__grid">
+          <div>
+            <div class="section-label reveal">Start the Conversation</div>
+            <h2 class="contact__info-headline reveal reveal-delay-1">Tell Me About Your Book.</h2>
+            <p class="contact__info-body reveal reveal-delay-2">Complete the form and I'll use your answers to begin understanding your book, your goals, and where the opportunities may be. This is the first step toward a marketing strategy built specifically for you.</p>
+            <p class="contact__info-body reveal reveal-delay-2" style="font-size:0.85rem;color:var(--stone-dark);">
+              Prefer to reach out directly?<br>
+              <a href="mailto:keimjoan76@gmail.com" style="color:var(--gold);font-weight:600;">keimjoan76@gmail.com</a>
+            </p>
+
+            <div class="social-icons reveal reveal-delay-3">
+              <a href="mailto:keimjoan76@gmail.com" class="social-icon" aria-label="Email Joan Keim" title="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+              <a href="#" class="social-icon" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+              <a href="#" class="social-icon" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+              <a href="#" class="social-icon" aria-label="X / Twitter" title="X / Twitter" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+              <a href="#" class="social-icon" aria-label="TikTok" title="TikTok" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+            </div>
+          </div>
+
+          <div>
+            <form class="form reveal" id="assessmentForm" action="https://formspree.io/f/mdeoowpd" method="POST">
+              <input type="hidden" name="_replyto" value="keimjoan76@gmail.com">
+              <input type="hidden" name="_subject" value="New Book Marketing Assessment Request">
+              
+              <div class="form__row">
+                <div class="form__group"><label class="form__label" for="fullName">Full Name <span>*</span></label><input class="form__input" type="text" id="fullName" name="fullName" required placeholder="Your full name"/></div>
+                <div class="form__group"><label class="form__label" for="email">Email Address <span>*</span></label><input class="form__input" type="email" id="email" name="email" required placeholder="your@email.com"/></div>
+              </div>
+
+              <div class="form__row">
+                <div class="form__group"><label class="form__label" for="bookTitle">Book Title <span>*</span></label><input class="form__input" type="text" id="bookTitle" name="bookTitle" required placeholder="Title of your book"/></div>
+                <div class="form__group"><label class="form__label" for="genre">Book Genre <span>*</span></label><input class="form__input" type="text" id="genre" name="genre" required placeholder="e.g. Literary Fiction"/></div>
+              </div>
+
+              <div class="form__row">
+                <div class="form__group">
+                  <label class="form__label" for="publishingModel">Publishing Model</label>
+                  <select class="form__select" id="publishingModel" name="publishingModel">
+                    <option value="" disabled selected>Select one</option>
+                    <option value="self-published">Self-Published</option>
+                    <option value="traditional">Traditionally Published</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="independent">Independent</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="form__group">
+                  <label class="form__label" for="bookStage">Book Stage</label>
+                  <select class="form__select" id="bookStage" name="bookStage">
+                    <option value="" disabled selected>Select one</option>
+                    <option value="planning">Planning / Writing</option>
+                    <option value="pre-publication">Pre-Publication</option>
+                    <option value="newly-published">Newly Published</option>
+                    <option value="published-while">Published for a While</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form__group">
+                <label class="form__label" for="authorWebsite">Author Website</label>
+                <input class="form__input" type="url" id="authorWebsite" name="authorWebsite" placeholder="https://yourauthorwebsite.com"/>
+              </div>
+
+              <div class="form__group">
+                <label class="form__label" for="goals">What are you hoping to achieve? <span>*</span></label>
+                <textarea class="form__textarea" id="goals" name="goals" required placeholder="Tell me about your goals for this book." rows="4"></textarea>
+              </div>
+
+              <div class="form__group">
+                <label class="form__label" for="marketingTried">What marketing have you already tried?</label>
+                <textarea class="form__textarea" id="marketingTried" name="marketingTried" placeholder="Describe any marketing efforts you've made so far." rows="3"></textarea>
+              </div>
+
+              <div class="form__group">
+                <label class="form__label" for="holdingBack">What is currently holding your book back?</label>
+                <textarea class="form__textarea" id="holdingBack" name="holdingBack" placeholder="Share your thoughts on the challenges your book faces." rows="3"></textarea>
+              </div>
+
+              <div class="form__group">
+                <label class="form__label" for="additionalInfo">Additional Information</label>
+                <textarea class="form__textarea" id="additionalInfo" name="additionalInfo" placeholder="Anything else you'd like me to know." rows="3"></textarea>
+              </div>
+
+              <div style="margin-top:0.5rem;">
+                <button type="submit" class="btn btn--primary" style="width:100%;font-size:0.78rem;padding:1.1rem 2rem;">Request My Book Marketing Assessment</button>
+              </div>
+
+              <p class="form__privacy"><strong>Your privacy matters.</strong> The information you share is used solely to understand your book and marketing goals. It is treated with discretion.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Joan Keim</div><div class="footer__brand-title">Book Marketing Strategist</div><p class="footer__tagline">"Research Before Reach.<br>Strategy Before Promotion."</p>
+          <div class="social-icons social-icons--dark">
+            <a href="mailto:keimjoan76@gmail.com" class="social-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+            <a href="#" class="social-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" class="social-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+            <a href="#" class="social-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" class="social-icon"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__col-title">Navigation</div>
+          <nav class="footer__links"><a href="index.html" class="footer__link">Home</a><a href="about.html" class="footer__link">About</a><a href="process.html" class="footer__link">How I Work</a><a href="service.html" class="footer__link">Services</a><a href="who.html" class="footer__link">Who I Work With</a><a href="contact.html" class="footer__link">Contact</a></nav>
+        </div>
+        <div><div class="footer__col-title">Contact</div><p class="footer__contact-email"><a href="mailto:keimjoan76@gmail.com">keimjoan76@gmail.com</a></p><a href="contact.html" class="btn btn--outline" style="font-size:0.65rem;padding:0.7rem 1.25rem;color:rgba(247,243,234,0.6);border-color:rgba(247,243,234,0.2);">Start the Conversation</a></div>
+      </div>
+      <div class="footer__bottom"><p class="footer__copy">&copy; <span id="year"></span> Joan Keim · All rights reserved.</p><div class="footer__bottom-links"><a href="#" class="footer__bottom-link">Privacy Policy</a></div></div>
+    </div>
+  </footer>
+
+  <script>
+    const nav=document.querySelector('.nav'), hamburger=document.getElementById('hamburger'), mobileMenu=document.getElementById('mobileMenu');
+    window.addEventListener('scroll', ()=>nav.classList.toggle('scrolled', window.scrollY>20), {passive:true});
+    hamburger.addEventListener('click', ()=>{ mobileMenu.classList.toggle('open'); hamburger.classList.toggle('open'); });
+    const observer = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }}); }, {threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
